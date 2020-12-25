@@ -23,21 +23,24 @@ struct Contact {
     
 }
 
-//extension Contact {
-//    static func getContactList() -> [Contact] {
-//        var contacts: [Contact] = []
-//        let dm = DataManager()
-//
-//        for _ in 1...4 {
-//            contacts.append(Contact(name: dm.names.remove(at: Int.random(in: 0...dm.names.count-1)),
-//                                    surname: dm.surnames.remove(at: Int.random(in: 0...dm.surnames.count-1)),
-//                                    phoneNumber: dm.phoneNumbers.remove(at: Int.random(in: 0...dm.phoneNumbers.count-1)),
-//                                    email: dm.emails.remove(at: Int.random(in: 0...dm.emails.count-1))))
-//        }
-//
-//
-//
-//        return contacts
-//
-//    }
-//}
+extension Contact {
+    static func getContactList() -> [Contact] {
+        var contacts: [Contact] = []
+        
+        let names = DataManager.shared.names.shuffled()
+        let surnames = DataManager.shared.surnames.shuffled()
+        let phoneNumbers = DataManager.shared.phoneNumbers.shuffled()
+        let emails = DataManager.shared.emails.shuffled()
+        
+        for value in 0...DataManager.shared.names.count-1 {
+            contacts.append(Contact(name: names[value],
+                                    surname: surnames[value],
+                                    phoneNumber: phoneNumbers[value],
+                                    email: emails[value]))
+        }
+        
+        return contacts
+    }
+}
+
+
